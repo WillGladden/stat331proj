@@ -1,0 +1,76 @@
+---
+title: "STAT331 Final Project Proposal"
+author: "Giovani Thai, William Gladden, Soren Paetau"
+format: 
+  html:
+    self-contained: true
+    code-tools: true
+    code-fold: true
+    toc: true
+    number-sections: true
+    smooth-scroll: true
+editor: source
+execute: 
+  error: true
+  echo: true
+  message: false
+  warning: false
+---
+
+```{r}
+library(tidyverse)
+```
+
+## Project Proposal
+
+```{r}
+#importing data
+sanitation.data <- read.csv("at_least_basic_sanitation_overall_access_percent.csv", check.names = F)
+income.data <- read.csv("income_per_person_gdppercapita_ppp_inflation_adjusted.csv")
+colnames(income.data) <- c("country", 1799:2049)
+```
+
+## Data Description
+```{r}
+head(income.data)
+```
+The income data set measures the total GDP of a country per person for 216 countries between the years of 1892 and 2049, with units in fixed 2017 prices. This number is adjusted for PPP, or the differences between costs of living and essential products, across countries. The data comes from the World Bank, the Maddison Project Database, and the Penn World Table. Historical estimates were used for early years; forecasts from the IMF's Economic Outlook were used to project income in the future.
+
+Source: https://www.gapminder.org/data/documentation/gd001/
+
+```{r}
+head(sanitation.data)
+```
+The sanitation data set measures the percentage of people (living in both urban and rural settings) who use at lease basic sanitation services not shared with other households. This includes:
+
++ flushing/pouring to piped sewer systems
++ septic
++ ventilation for pit latrines (e.g. squat toilets)
+
+The data was collected by the World Health Organization and UNICEF.
+
+Source: https://data.worldbank.org/indicator/SH.STA.SMSS.ZS
+
+## Hypothesized Relationship
+We hypothesize that there will be a positive relation between income per person and percentage of people with basic sanitation at their disposal. We would also like to investigate and highlight any potential outliers, such as moments in time where certain countries failed to improve sanitation with increased income, or drastic dips/surges in income/sanitation over a single year.
+
+
+## Data Cleaning Process
+replace na values with either median or mean (tbd)
+```{r}
+#data cleaning + joining
+sanitation.clean <- sanitation.data |>
+  pivot_longer(cols = `1999`:`2019`,
+               names_to = "year",
+               values_to = "sanitation")
+
+income.clean <- income.data |>
+  pivot_longer(cols = X1799:X2049,
+               names_to = "year",
+               values_to = "income")
+# if str_detect k
+# then 
+# 1000 * (as.numeric(str_remove(3939k))
+
+insane.data <- inner_join(sanitation.clean, income.clean)
+```
