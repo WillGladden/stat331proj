@@ -30,7 +30,7 @@ library(tidyverse)
 ## Data Description
 ```{r import}
 
-sanitation.data <- read_csv("at_least_basic_sanitation_overall_access_percent.csv", check.names = F)
+sanitation.data <- read_csv("at_least_basic_sanitation_overall_access_percent.csv")
 income.data <- read_csv("income_per_person_gdppercapita_ppp_inflation_adjusted.csv")
 colnames(income.data) <- c("country", as.numeric(1799:2049))
 ```
