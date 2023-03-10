@@ -23,8 +23,6 @@ library(tidyverse)
 
 # Project Proposal
 
-
-
 ## Data Description
 ```{r import}
 
@@ -86,7 +84,7 @@ income.clean <- income.data |>
                names_to = "year",
                values_to = "income") |>
   mutate(income = as.numeric(map(income, convert_num)))#converts characters,
-  #able to convert after pivot, b/c data is all seen as strings!
+  #able to convert after pivot, b/c data is all seen as strings
 ```
 The cleaning process above is relatively simple, converting some data entries of the form $12.3k \to 12300$. Notice that the decision to drop NA values was made, since `ggplot` and `lm` will drop NA values and we have an abundance of data entries. This decision will save headaches later down the road when taking advantae of the country column.
 
@@ -96,3 +94,5 @@ full.data <- inner_join(sanitation.clean, income.clean)
 head(full.data)
 summary(full.data)
 ```
+
+# Project
