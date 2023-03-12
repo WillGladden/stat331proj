@@ -1,6 +1,6 @@
 ---
 title: "The Clean and the Green"
-subtitle: "Investigating the Relationship between Income and Sanitation"
+subtitle: "Investigating the Relationship Between Income and Sanitation"
 author: "Giovani Thai, William Gladden, Soren Paetau"
 format: 
   html:
@@ -113,7 +113,7 @@ We first visualize the relation between these two variables:
 ```{r relation}
 full.data |>
   ggplot(mapping = aes(x = income, y = sanitation) ) +
-  geom_jitter() +
+  geom_point() +
   geom_smooth(color = "red") +
   labs(title = "Income versus Sanitation, 1999-2049",
        subtitle = "Percentage of People with (at least) Basic Sanitation Services",
@@ -123,7 +123,10 @@ full.data |>
 
 Although the above scatter plot is very messy, we can see a general pattern: countries with low adjusted income per person have lower percentages of people with basic sanitation, whereas countries with high income per person never have less than 90 percent of people with basic sanitation.
 
-However, there are also instances where countries with very low income per person have high percentages of people with basic sanitation. Below is an example of such a country: 
+reword the end of this sentence^
+
+
+However, there are also instances where countries with very low income per person have high percentages of people with basic sanitation. Below is an example of such a country: what country, be specific
 
 ```{r}
 full.data |>
@@ -132,6 +135,7 @@ full.data |>
   geom_jitter()
 ```
 It is clear that most data points follow the trend; however, more needs to be investigated in order to understand these outliers.
+??? weirdly worded
 
 ### Relationship over Time:
 We look at the relationship between average income per person and average percentage of people with basic sanitation at their disposal across 1999-2019.
@@ -159,4 +163,24 @@ full.data |>
        color = "Year")
   
 ```
-working
+there is a better way to show this data
+different color scheme, no rainbow
+
+Year should be on the x-axis,
+some measure of the variables relationship on y
+
+
+## Linear regression
+lm data
+summary
+
+$regression equation$
+intercept interpretation
+coefficient interpretation
+
+## Model Fit
+Table of variance? Latex table generator
+
+prop of variability in repsonse values accounted by model (kinda R^2)
+How good is our model?
+
