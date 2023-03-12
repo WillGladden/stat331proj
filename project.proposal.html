@@ -2670,16 +2670,9 @@ vertical-align: -.125em;
 <div class="cell">
 <details>
 <summary>Code</summary>
-<<<<<<< HEAD
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#importing data</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>sanitation.data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;at_least_basic_sanitation_overall_access_percent.csv&quot;</span>, <span class="at">check.names =</span> F)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>income.data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;income_per_person_gdppercapita_ppp_inflation_adjusted.csv&quot;</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(income.data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;country&quot;</span>, <span class="dv">1799</span><span class="sc">:</span><span class="dv">2049</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-=======
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sanitation.data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;at_least_basic_sanitation_overall_access_percent.csv&quot;</span>, <span class="at">check.names =</span> F)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>income.data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;income_per_person_gdppercapita_ppp_inflation_adjusted.csv&quot;</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(income.data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;country&quot;</span>, <span class="fu">as.numeric</span>(<span class="dv">1799</span><span class="sc">:</span><span class="dv">2049</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
->>>>>>> 60c376c8fc1b4f572545eb8dc495f08d8eb23da8
 </details>
 </div>
 <section id="income-dataset" class="level3" data-number="1.1.1">
@@ -2687,144 +2680,6 @@ vertical-align: -.125em;
 <div class="cell">
 <details>
 <summary>Code</summary>
-<<<<<<< HEAD
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(income.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>               country 1799 1800 1801 1802 1803 1804 1805 1806 1807 1808 1809
-1          Afghanistan  683  683  683  683  683  683  683  683  683  683  684
-2               Angola  700  702  705  709  711  714  718  721  725  727  730
-3              Albania  755  755  755  755  755  756  756  756  756  756  756
-4              Andorra 1360 1360 1360 1360 1370 1370 1370 1370 1380 1380 1380
-5 United Arab Emirates 1130 1130 1140 1140 1150 1150 1160 1160 1160 1170 1170
-6            Argentina 1730 1730 1740 1740 1750 1760 1760 1770 1770 1780 1790
-  1810 1811 1812 1813 1814 1815 1816 1817 1818 1819 1820 1821 1822 1823 1824
-1  684  684  684  684  684  684  684  684  684  684  687  689  692  694  696
-2  734  737  740  744  747  749  753  756  760  763  764  764  765  766  766
-3  756  756  756  756  757  757  757  757  757  757  760  761  763  764  766
-4 1380 1390 1390 1390 1390 1400 1400 1400 1400 1410 1420 1440 1460 1470 1490
-5 1180 1180 1190 1190 1190 1200 1200 1210 1210 1220 1220 1230 1230 1240 1240
-6 1790 1800 1810 1810 1820 1820 1830 1840 1840 1850 1860 1880 1890 1910 1920
-  1825 1826 1827 1828 1829 1830 1831 1832 1833 1834 1835 1836 1837 1838 1839
-1  698  701  703  705  708  710  713  715  718  720  722  725  728  730  732
-2  767  767  768  768  769  770  771  771  772  772  772  773  774  774  774
-3  768  770  771  773  774  777  779  780  782  783  786  787  789  791  792
-4 1510 1530 1550 1560 1580 1600 1620 1640 1660 1680 1700 1720 1740 1760 1780
-5 1240 1250 1250 1260 1260 1270 1270 1280 1280 1290 1290 1300 1300 1310 1310
-6 1940 1950 1960 1980 1990 2010 2020 2040 2060 2070 2090 2100 2120 2130 2150
-  1840 1841 1842 1843 1844 1845 1846 1847 1848 1849 1850 1851 1852 1853 1854
-1  735  737  740  743  745  747  751  753  755  757  761  763  765  768  771
-2  775  776  776  776  776  777  777  777  778  778  779  779  779  780  780
-3  795  796  798  800  802  804  805  807  809  811  813  815  816  818  820
-4 1800 1820 1840 1870 1890 1910 1930 1960 1980 2000 2030 2050 2080 2100 2130
-5 1320 1320 1330 1330 1340 1340 1350 1350 1360 1360 1370 1370 1380 1380 1390
-6 2170 2180 2200 2220 2230 2250 2270 2280 2300 2320 2340 2360 2370 2390 2410
-  1855 1856 1857 1858 1859 1860 1861 1862 1863 1864 1865 1866 1867 1868 1869
-1  773  775  779  781  783  787  789  791  795  797  800  803  805  808  811
-2  781  781  781  781  782  781  782  782  782  783  782  783  782  783  783
-3  822  824  825  828  830  829  829  830  829  829  829  829  827  827  827
-4 2150 2180 2200 2230 2260 2280 2310 2340 2360 2390 2420 2450 2480 2510 2540
-5 1390 1400 1400 1410 1410 1420 1420 1430 1430 1440 1450 1450 1460 1460 1470
-6 2430 2450 2470 2490 2510 2530 2550 2570 2590 2610 2630 2660 2680 2700 2720
-  1870 1871 1872 1873 1874 1875 1876 1877 1878 1879 1880 1881 1882 1883 1884
-1  814  816  820  822  825  828  831  833  837  839  852  863  876  887  899
-2  784  783  783  784  783  783  783  783  784  784  783  783  783  783  783
-3  839  851  864  876  889  902  916  929  943  957  971  985 1000 1020 1030
-4 2570 2600 2630 2660 2690 2720 2760 2790 2820 2860 2890 2920 2960 2990 3030
-5 1490 1510 1530 1550 1580 1600 1620 1650 1670 1700 1720 1750 1770 1800 1840
-6 2780 2840 2900 2970 3030 3040 3280 3040 3100 2970 2950 3610 3920 4050 4540
-  1885 1886 1887 1888 1889 1890 1891 1892 1893 1894 1895 1896 1897 1898 1899
-1  910  922  933  944  955  965  976  986  997 1010 1020 1030 1040 1040 1050
-2  783  782  782  782  782  782  781  781  781  780  780  780  780  779  779
-3 1050 1060 1080 1090 1110 1120 1140 1150 1170 1190 1200 1220 1240 1250 1270
-4 3070 3100 3140 3180 3210 3250 3290 3330 3370 3410 3450 3490 3530 3580 3620
-5 1870 1910 1960 2010 2070 2140 2220 2310 2410 2520 2640 2790 2940 3120 3310
-6 4380 4470 4900 4990 4480 4220 4940 5130 5780 6260 6650 5230 5510 6290 5330
-  1900 1901 1902 1903 1904 1905 1906 1907 1908 1909 1910 1911 1912 1913 1914
-1 1060 1070 1080 1090 1100 1100 1110 1120 1130 1130 1140 1150 1150 1160 1170
-2  778  778  777  777  776  776  775  774  774  774  773  772  771  791  810
-3 1290 1300 1320 1340 1350 1370 1390 1410 1430 1450 1460 1480 1500 1520 1530
-4 3660 3700 3750 3790 3840 3880 3930 3980 4020 4070 4120 4170 4220 4290 4360
-5 3530 3770 4030 4320 4640 4980 5360 5770 6220 6710 7230 7800 8420 8510 8610
-6 5340 5040 5540 5910 6450 6520 6410 6780 6850 7080 6940 7230 7040 6120 6010
-  1915 1916 1917 1918  1919  1920  1921  1922  1923  1924  1925  1926  1927
-1 1180 1180 1190 1200  1200  1210  1220  1230  1240  1240  1250  1260  1270
-2  830  850  870  891   912   937   961   986  1010  1040  1070  1090  1120
-3 1540 1550 1570 1580  1590  1610  1620  1630  1650  1660  1670  1690  1700
-4 4430 4510 4580 4660  4740  4820  4900  4990  5080  5160  5250  5340  5430
-5 8720 8810 8910 9960 11.1k 12.4k 13.9k 14.6k 15.4k 16.1k 16.7k 17.2k 17.8k
-6 5730 5170 6020 6130  6440  6430  6740  7220  7510  7260  7400  7700  7950
-   1928 1929  1930  1931  1932  1933 1934  1935  1936  1937  1938  1939  1940
-1  1270 1280  1290  1290  1300  1300 1310  1310  1320  1320  1320  1330  1330
-2  1150 1180  1210  1240  1270  1310 1340  1380  1410  1450  1480  1520  1560
-3  1720 1720  1730  1740  1740  1750 1760  1760  1770  1770  1780  1790  1790
-4  5530 5620  5720  5820  5920  6020 6120  6230  6340  6450  6560  6670  6780
-5 17.4k  17k 16.7k 16.3k 15.9k 15.5k  16k 16.6k 17.1k 17.7k 18.3k 18.8k 19.4k
-6  8090 7560  6880  6530  6710  7130 7320  7250  7640  7550  7690  7710  7980
-  1941  1942  1943  1944  1945  1946  1947  1948  1949 1950 1951  1952  1953
-1 1330  1340  1340  1340  1340  1340  1340  1340  1340 1360 1380  1440  1450
-2 1600  1640  1680  1720  1770  1810  1860  1900  1950 1990 2040  2090  2000
-3 1800  1810  1810  1820  1830  1840  1840  1850  1860 1940 1940  2020  2080
-4 6900  7020  7140  7260  7390  7510  7640  7770  7910 8550 9240  9990 10.8k
-5  20k 20.6k 21.2k 22.3k 23.5k 24.7k 25.9k 27.2k 28.5k  31k  32k 34.1k 36.8k
-6 7940  7750  8490  8070  8640  9430  9730  9350  9240 9400 8740  9030  9230
-   1954  1955  1956  1957  1958  1959  1960  1961  1962  1963  1964  1965  1966
-1  1450  1490  1460  1510  1520  1540  1520  1510  1510  1500  1500  1480  1480
-2  2130  2060  2220  2300  2270  2320  2590  2470  2560  2800  2960  3080  3200
-3  2190  2210  2350  2460  2560  2690  2720  2810  2910  3010  3130  3250  3380
-4 11.7k 12.6k 13.6k 14.8k   16k 17.2k 18.6k 20.2k 21.8k 23.6k 25.5k 27.5k 29.8k
-5 36.5k 37.8k 37.6k 37.7k 39.7k 41.6k 47.7k 54.8k 61.7k 68.6k 75.2k 81.5k 87.4k
-6  9700  9790 10.1k 10.6k  9710 10.3k 10.9k 10.7k 10.3k 11.3k 12.2k 12.2k 12.4k
-   1967  1968  1969  1970  1971  1972  1973  1974  1975  1976  1977  1978  1979
-1  1500  1490  1480  1440  1170  1180  1210  1250  1290  1190  1240  1190  1190
-2  3100  3130  3280  3200  3170  3320  3170  1990  1770  1740  1780  1780  1780
-3  3500  3630  3770  3920  4080  4290  4310  4330  4360  4380  4410  4440  4470
-4 32.2k 34.8k 37.6k 37.4k 38.5k 39.5k 39.9k 38.6k 38.5k 38.4k 37.9k 36.8k 36.3k
-5   92k 94.1k 95.7k  102k 93.9k 91.5k 93.9k 84.6k 84.2k 86.1k 73.9k 82.2k 93.8k
-6 12.8k 13.8k 14.4k 14.9k 15.2k 15.9k 16.8k 16.5k 16.2k   17k 16.1k   17k 17.1k
-   1980  1981  1982  1983  1984  1985  1986  1987  1988  1989  1990  1991  1992
-1  1330  1480  1570  1550  1520  1560  1410  1280  1160  1120  1020   981   672
-2  1710  1600  1500  1460  1440  1290  1410  1580  1580  1610  1670  1620  1260
-3  4500  4540  4570  4600  4630  4670  4700  4740  4780  4830  3500  3270  3600
-4 34.9k 33.9k   33k 32.1k 31.5k 31.2k 31.6k 31.9k 32.2k 32.2k 31.7k 30.8k 29.4k
-5 89.9k 77.6k 69.7k 68.8k 63.5k 48.1k 47.8k 44.3k   47k 51.3k 50.5k 50.5k 50.1k
-6 15.9k 15.3k 15.6k 15.8k 14.6k 15.6k 15.8k 15.3k 14.3k 14.1k 15.2k 16.2k 17.3k
-   1993  1994  1995  1996  1997  1998  1999  2000  2001  2002  2003  2004  2005
-1   498   736   698   663   634   603   584   569  1190  1240  1200  1290  1320
-2  1300  1530  1780  1960  2110  2210  2340  2510  2930  3150  3560  4310  5610
-3  3920  4470  4910  4400  4820  5480  5890  6440  6750  7150  7580  8040  8570
-4 29.3k 29.6k 30.8k 33.7k 34.9k 36.2k 35.8k   36k 36.1k 39.1k 41.1k   45k 48.4k
-5 53.1k 56.2k 58.6k 62.8k 62.8k 64.6k 71.6k 72.2k 73.5k 78.6k 82.5k 80.8k 86.4k
-6 18.1k 17.4k 18.1k 19.3k 19.9k   19k 18.6k 17.6k 15.5k 16.7k   18k 19.4k 20.8k
-   2006  2007  2008  2009  2010  2011  2012  2013  2014  2015  2016  2017  2018
-1  1460  1480  1760  1960  1910  2080  2120  2100  2070  2060  2060  2030  2070
-2  6960  7850  7760  7690  7680  8040  8140  8240  8040  7570  7310  6930  6670
-3  9150  9910 10.3k 10.7k 11.1k 11.2k 11.4k 11.6k 11.9k 12.3k 12.8k 13.3k 13.7k
-4 49.2k 46.9k 47.2k 44.1k 47.5k 47.5k 49.5k 50.9k 52.7k 54.5k 56.3k 58.3k 58.4k
-5 76.6k 68.8k 58.4k 54.9k 56.1k 57.4k 59.9k 62.5k 65.3k 66.5k 67.2k   67k 68.3k
-6 22.4k 23.1k 21.5k 23.5k 24.6k 24.1k 24.4k 23.6k 23.9k 23.2k 23.6k 22.7k 22.1k
-   2019  2020  2021  2022  2023  2024  2025  2026  2027  2028  2029  2030  2031
-1  1970  1950  1990  2040  2070  2100  2140  2140  2150  2160  2180  2210  2240
-2  6120  5980  5980  6000  6040  6100  6160  6220  6280  6350  6430  6530  6640
-3 13.2k 14.3k 14.7k 15.1k 15.7k 16.3k 16.9k 17.5k 18.2k 18.8k 19.4k   20k 20.5k
-4 51.6k 55.1k 56.5k 56.9k 57.1k 56.8k 56.6k 56.3k 56.2k 56.2k 56.4k 56.9k 57.6k
-5 65.6k 65.1k 65.2k 66.3k 67.9k 69.5k 71.2k 73.1k 75.1k   77k   79k 80.9k 82.8k
-6 19.7k 21.5k 22.1k 22.6k 22.9k 23.2k 23.4k 23.6k 23.9k 24.2k 24.5k 24.9k 25.3k
-   2032  2033  2034  2035  2036  2037  2038  2039  2040  2041  2042  2043  2044
-1  2280  2320  2370  2420  2470  2520  2580  2630  2690  2750  2810  2870  2930
-2  6770  6900  7040  7190  7350  7500  7660  7830  8000  8170  8350  8530  8710
-3 21.1k 21.6k   22k 22.5k   23k 23.5k   24k 24.5k 25.1k 25.6k 26.2k 26.7k 27.3k
-4 58.5k 59.5k 60.7k 61.9k 63.3k 64.6k   66k 67.4k 68.9k 70.4k 71.9k 73.4k   75k
-5 84.7k 86.6k 88.5k 90.4k 92.4k 94.3k 96.4k 98.5k  101k  103k  105k  107k  110k
-6 25.8k 26.3k 26.8k 27.4k   28k 28.6k 29.2k 29.9k 30.5k 31.1k 31.8k 32.5k 33.2k
-   2045  2046  2047  2048  2049
-1  2990  3060  3120  3190  3260
-2  8900  9090  9280  9480  9690
-3 27.9k 28.5k 29.1k 29.7k 30.4k
-4 76.6k 78.3k   80k 81.7k 83.4k
-5  112k  114k  117k  119k  122k
-6 33.9k 34.7k 35.4k 36.2k 36.9k</code></pre>
-=======
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">select</span>(income.data, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
@@ -2835,7 +2690,6 @@ vertical-align: -.125em;
 4              Andorra 1360 1360 1360 1360
 5 United Arab Emirates 1130 1130 1140 1140
 6            Argentina 1730 1730 1740 1740</code></pre>
->>>>>>> 60c376c8fc1b4f572545eb8dc495f08d8eb23da8
 </div>
 </div>
 <p>The income data set measures the total GDP of a country per person for 216 countries between the years of 1892 and 2049, with units in fixed 2017 prices. This number is adjusted for PPP, or the differences between costs of living and essential products, across countries. The data comes from the World Bank, the Maddison Project Database, and the Penn World Table. Historical estimates were used for early years; forecasts from the IMF’s Economic Outlook were used to project income in the future.</p>
@@ -2846,25 +2700,6 @@ vertical-align: -.125em;
 <div class="cell">
 <details>
 <summary>Code</summary>
-<<<<<<< HEAD
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sanitation.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>               country  1999  2000  2001  2002  2003  2004  2005  2006  2007
-1                Aruba  98.3  98.3  98.2  98.1  98.1  98.0  97.9  97.9  97.8
-2          Afghanistan  21.9  21.9  23.3  24.7  26.1  27.5  28.9  30.4  31.9
-3               Angola  27.6  29.0  30.4  31.9  33.3  34.7  36.0  37.3  38.5
-4              Albania  89.5  90.0  90.6  91.2  91.7  92.3  92.9  93.5  94.1
-5              Andorra 100.0 100.0 100.0 100.0 100.0 100.0 100.0 100.0 100.0
-6 United Arab Emirates    NA    NA  97.4  97.4  97.4  97.4  97.4  97.5  97.6
-   2008  2009  2010  2011  2012  2013  2014  2015  2016  2017  2018  2019
-1  97.7  97.7  97.6  97.5  97.5  97.5  97.5  97.5    NA    NA    NA    NA
-2  33.4  34.9  36.4  38.0  39.5  41.1  42.6  44.2  45.8  47.4  49.0  50.5
-3  39.8  41.1  42.3  43.6  44.9  46.1  47.4  48.6  49.9  51.1  51.4  51.7
-4  94.6  95.2  95.7  96.2  96.7  97.2  97.7  98.1  98.5  99.0  99.2  99.3
-5 100.0 100.0 100.0 100.0 100.0 100.0 100.0 100.0 100.0 100.0 100.0 100.0
-6  97.8  97.9  98.1  98.2  98.3  98.5  98.6  98.7  98.9  99.0  99.1  99.2</code></pre>
-=======
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">select</span>(sanitation.data, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
@@ -2875,7 +2710,6 @@ vertical-align: -.125em;
 4              Albania  89.5  90.0  90.6  91.2
 5              Andorra 100.0 100.0 100.0 100.0
 6 United Arab Emirates    NA    NA  97.4  97.4</code></pre>
->>>>>>> 60c376c8fc1b4f572545eb8dc495f08d8eb23da8
 </div>
 </div>
 <p>The sanitation data set measures the percentage of people (living in both urban and rural settings) who use at lease basic sanitation services not shared with other households. This includes:</p>
@@ -2897,34 +2731,6 @@ vertical-align: -.125em;
 <div class="cell">
 <details>
 <summary>Code</summary>
-<<<<<<< HEAD
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#data cleaning + joining</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>sanitation.clean <span class="ot">&lt;-</span> sanitation.data <span class="sc">|&gt;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="st">`</span><span class="at">1999</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2019</span><span class="st">`</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;sanitation&quot;</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>income.clean <span class="ot">&lt;-</span> income.data <span class="sc">|&gt;</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> X1799<span class="sc">:</span>X2049,</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;income&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in `chr_as_locations()`:
-! Can&#39;t subset columns that don&#39;t exist.
-✖ Column `X1799` doesn&#39;t exist.</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># if str_detect k</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># then </span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1000 * (as.numeric(str_remove(3939k))</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>insane.data <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(sanitation.clean, income.clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in is.data.frame(y): object &#39;income.clean&#39; not found</code></pre>
-=======
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>convert_num <span class="ot">&lt;-</span> <span class="cf">function</span>(x){ <span class="co">#converts &quot;12.3k&quot; to 12300,  </span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  temp <span class="ot">&lt;-</span> x</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">str_detect</span>(x, <span class="st">&quot;k$&quot;</span>)){</span>
@@ -2953,7 +2759,7 @@ vertical-align: -.125em;
 <span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  <span class="co">#able to convert after pivot, b/c data is all seen as strings!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>The cleaning process above is relatively simple, converting some data entries of the form <span class="math inline">\(12.3k \to 12300\)</span>. Notice that the decision to drop NA values was made, since <code>ggplot</code> and <code>lm</code> will drop NA values and we have an abundance of data entries. This decision will save headaches later down the road when taking advantae of the country column.</p>
+<p>The cleaning process above is relatively simple, converting some data entries of the form <span class="math inline">\(12.3k \to 12300\)</span>. Notice that the decision to drop NA values was made, since <code>ggplot</code> and <code>lm</code> will drop NA values and we have an abundance of data entries. This decision will save headaches later down the road when taking advantage of the country column.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>full.data <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(sanitation.clean, income.clean)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(full.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2977,7 +2783,6 @@ vertical-align: -.125em;
                                        Mean   : 71.21   Mean   :15937  
                                        3rd Qu.: 97.80   3rd Qu.:21125  
                                        Max.   :100.00   Max.   :99300  </code></pre>
->>>>>>> 60c376c8fc1b4f572545eb8dc495f08d8eb23da8
 </div>
 </div>
 <!-- -->
@@ -3171,84 +2976,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class>
-<<<<<<< HEAD
-<div class="sourceCode" id="cb11" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;STAT331 Final Project Proposal&quot;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> &quot;Giovani Thai, William Gladden, Soren Paetau&quot;</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> </span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">    self-contained: true</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co">    number-sections: true</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">    smooth-scroll: true</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="an">editor:</span><span class="co"> source</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span><span class="co"> </span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co">  error: true</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: true</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co">  message: false</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co">  warning: false</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## Project Proposal</span></span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="co">#importing data</span></span>
-<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>sanitation.data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;at_least_basic_sanitation_overall_access_percent.csv&quot;</span>, <span class="at">check.names =</span> F)</span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>income.data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;income_per_person_gdppercapita_ppp_inflation_adjusted.csv&quot;</span>)</span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(income.data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;country&quot;</span>, <span class="dv">1799</span><span class="sc">:</span><span class="dv">2049</span>)</span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Description</span></span>
-<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(income.data)</span>
-<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>The income data set measures the total GDP of a country per person for 216 countries between the years of 1892 and 2049, with units in fixed 2017 prices. This number is adjusted for PPP, or the differences between costs of living and essential products, across countries. The data comes from the World Bank, the Maddison Project Database, and the Penn World Table. Historical estimates were used for early years; forecasts from the IMF&#39;s Economic Outlook were used to project income in the future.</span>
-<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>Source: https://www.gapminder.org/data/documentation/gd001/</span>
-<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sanitation.data)</span>
-<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a>The sanitation data set measures the percentage of people (living in both urban and rural settings) who use at lease basic sanitation services not shared with other households. This includes:</span>
-<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a><span class="ss">+ </span>flushing/pouring to piped sewer systems</span>
-<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a><span class="ss">+ </span>septic</span>
-<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a><span class="ss">+ </span>ventilation for pit latrines (e.g. squat toilets)</span>
-<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>The data was collected by the World Health Organization and UNICEF.</span>
-<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a>Source: https://data.worldbank.org/indicator/SH.STA.SMSS.ZS</span>
-<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a><span class="fu">## Hypothesized Relationship</span></span>
-<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a>We hypothesize that there will be a positive relation between income per person and percentage of people with basic sanitation at their disposal. We would also like to investigate and highlight any potential outliers, such as moments in time where certain countries failed to improve sanitation with increased income, or drastic dips/surges in income/sanitation over a single year.</span>
-<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Cleaning Process</span></span>
-<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a>replace na values with either median or mean (tbd)</span>
-<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a><span class="co">#data cleaning + joining</span></span>
-<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a>sanitation.clean <span class="ot">&lt;-</span> sanitation.data <span class="sc">|&gt;</span></span>
-<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="st">`</span><span class="at">1999</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2019</span><span class="st">`</span>,</span>
-<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
-<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;sanitation&quot;</span>)</span>
-<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a>income.clean <span class="ot">&lt;-</span> income.data <span class="sc">|&gt;</span></span>
-<span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> X1799<span class="sc">:</span>X2049,</span>
-<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
-<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;income&quot;</span>)</span>
-<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a><span class="co"># if str_detect k</span></span>
-<span id="cb11-82"><a href="#cb11-82" aria-hidden="true" tabindex="-1"></a><span class="co"># then </span></span>
-<span id="cb11-83"><a href="#cb11-83" aria-hidden="true" tabindex="-1"></a><span class="co"># 1000 * (as.numeric(str_remove(3939k))</span></span>
-<span id="cb11-84"><a href="#cb11-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-85"><a href="#cb11-85" aria-hidden="true" tabindex="-1"></a>insane.data <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(sanitation.clean, income.clean)</span>
-<span id="cb11-86"><a href="#cb11-86" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-=======
 <div class="sourceCode" id="cb12" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;STAT331 Final Project Proposal&quot;</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> &quot;Giovani Thai, William Gladden, Soren Paetau&quot;</span></span>
@@ -3339,7 +3066,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">income =</span> <span class="fu">as.numeric</span>(<span class="fu">map</span>(income, convert_num)))<span class="co">#converts characters,</span></span>
 <span id="cb12-93"><a href="#cb12-93" aria-hidden="true" tabindex="-1"></a>  <span class="co">#able to convert after pivot, b/c data is all seen as strings!</span></span>
 <span id="cb12-94"><a href="#cb12-94" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-95"><a href="#cb12-95" aria-hidden="true" tabindex="-1"></a>The cleaning process above is relatively simple, converting some data entries of the form $12.3k \to 12300$. Notice that the decision to drop NA values was made, since <span class="in">`ggplot`</span> and <span class="in">`lm`</span> will drop NA values and we have an abundance of data entries. This decision will save headaches later down the road when taking advantae of the country column.</span>
+<span id="cb12-95"><a href="#cb12-95" aria-hidden="true" tabindex="-1"></a>The cleaning process above is relatively simple, converting some data entries of the form $12.3k \to 12300$. Notice that the decision to drop NA values was made, since <span class="in">`ggplot`</span> and <span class="in">`lm`</span> will drop NA values and we have an abundance of data entries. This decision will save headaches later down the road when taking advantage of the country column.</span>
 <span id="cb12-96"><a href="#cb12-96" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-97"><a href="#cb12-97" aria-hidden="true" tabindex="-1"></a><span class="in">```{r join}</span></span>
 <span id="cb12-98"><a href="#cb12-98" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
@@ -3347,7 +3074,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb12-100"><a href="#cb12-100" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(full.data)</span>
 <span id="cb12-101"><a href="#cb12-101" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(full.data)</span>
 <span id="cb12-102"><a href="#cb12-102" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
->>>>>>> 60c376c8fc1b4f572545eb8dc495f08d8eb23da8
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
