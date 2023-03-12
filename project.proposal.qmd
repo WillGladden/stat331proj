@@ -171,12 +171,14 @@ some measure of the variables relationship on y
 
 
 ## Linear regression
-lm data
-summary
-
-$regression equation$
-intercept interpretation
-coefficient interpretation
+```{r}
+#| include = F
+data.fit <- lm(sanitation~income, data = full.data)
+summary(data.fit)
+```
+Upon fitting a simple linear regression model for adjusted income per person and percent of people who have access to basic sanitation, we acquired the following regression equation:
+$$\hat{\text{sanitation}} = 55.75 + 0.0009699\text{(income)}$$
+Our regression equation tells us that if a country had an average adjusted income of $0, 55.75 percent of people would still have acess to basic sanitation services. Further, for every one dollar increase in adjusted income per person, a country should expect a 0.0009699 percent increase in the amount of people who have access to basic sanitation.
 
 ## Model Fit
 Table of variance? Latex table generator
