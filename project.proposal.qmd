@@ -122,6 +122,7 @@ full.plot <- full.data |>
        subtitle = "Percentage of People with (at least) Basic Sanitation Services",
        x = "Adjusted Income per Person (in 2017 $)",
        y = "")
+full.plot
 ```
 
 ```{r}
