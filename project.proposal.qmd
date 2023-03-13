@@ -95,10 +95,8 @@ income.clean <- income.data |>
 The cleaning process above is relatively simple, converting some data entries of the form $12.3k \to 12300$. Notice that the decision to drop NA values was made, since `ggplot` and `lm` will drop NA values and we have an abundance of data entries. This decision will save headaches later down the road when taking advantage of the country column.
 
 ```{r join}
-#| code-fold: false
 full.data <- inner_join(sanitation.clean, income.clean)
 head(full.data)
-summary(full.data)
 ```
 
 # Linear Regression
