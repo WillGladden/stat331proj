@@ -24,6 +24,8 @@ library(tidyverse)
 library(ggridges)
 library(RColorBrewer)
 library(broom)
+library(gganimate)
+library(gifski)
 ```
 
 # Project Proposal
@@ -110,7 +112,7 @@ Our goal is to develop a model that predicts the **percent of people with basic 
 We first visualize the relation between these two variables:
 
 ```{r relation}
-full.data |>
+full.plot <- full.data |>
   ggplot(mapping = aes(x = income, y = sanitation) ) +
   geom_point() +
   geom_smooth(method = lm, level = 0, color = "red") +
@@ -122,8 +124,23 @@ full.data |>
        y = "")
 ```
 
-Although the above scatter plot is very messy, we can see a general pattern: countries with low adjusted income per person have lower percentages of people with basic sanitation, whereas countries with high income per person never have less than 90 percent of people with basic sanitation.
+```{r}
+temp.plot <- full.data |>
+  mutate(year = as.numeric(year)) |>
+  ggplot(mapping = aes(x = income,
+                       y = sanitation)) +
+  geom_point(show.legend = F) +
+  transition_time(year) +
+  labs(title = "Income versus Sanitation, 1999-2019",
+       subtitle = "Year: {floor(frame_time)}",
+       x = "Adjusted Income per Person (in 2017 $)",
+       y = "Percentage of People with (at least) Basic Sanitation Services")
+  
+temp.plot
+```
 
+
+Although the above scatter plot is very messy, we can see a general pattern: countries with low adjusted income per person have lower percentages of people with basic sanitation, whereas countries with high income per person never have less than 90 percent of people with basic sanitation.
 
 However, there are instances where countries with very low income per person have high percentages of people with basic sanitation. Below you can see that the United States has had two years between 1999 and 2019 where adjusted income per person dipped below $20,000, but over 99% of Americans were able to have access to basic sanitation. 
 
