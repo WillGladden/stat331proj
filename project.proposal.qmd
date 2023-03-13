@@ -23,6 +23,7 @@ execute:
 library(tidyverse)
 library(ggridges)
 library(RColorBrewer)
+library(broom)
 ```
 
 # Project Proposal
@@ -156,6 +157,25 @@ full.data |>
   geom_segment(mapping = aes(xend = 0, yend = mean_sanitation)) +
   geom_point() +
   annotate("text", x = 17000, y = 76.6, label = "2019") +
+  annotate("text", x = 18700, y = 76.1, label = "2018") +
+  annotate("text", x = 17600, y = 75.6, label = "2017") +
+  annotate("text", x = 19200, y = 75.2, label = "2016") +
+  annotate("text", x = 19200, y = 74.6, label = "2015") +
+  annotate("text", x = 17500, y = 74.1, label = "2014") +
+  annotate("text", x = 17000, y = 73.5, label = "2013") +
+  annotate("text", x = 17700, y = 73.0, label = "2012") +
+  annotate("text", x = 16900, y = 72.4, label = "2011") +
+  annotate("text", x = 17500, y = 71.9, label = "2010") +
+  annotate("text", x = 16100, y = 71.3, label = "2009") +
+  annotate("text", x = 16600, y = 70.7, label = "2008") +
+  annotate("text", x = 17200, y = 70.1, label = "2007") +
+  annotate("text", x = 17200, y = 69.5, label = "2006") +
+  annotate("text", x = 17200, y = 69, label = "2005") +
+  annotate("text", x = 15900, y = 68.5, label = "2004") +
+  annotate("text", x = 15200, y = 67.9, label = "2003") +
+  annotate("text", x = 14700, y = 67.4, label = "2002") +
+  annotate("text", x = 15000, y = 66.9, label = "2001") +
+  annotate("text", x = 14400, y = 66.4, label = "2000") +
   annotate("text", x = 14600, y = 65.8, label = "1999") +
   labs(title = "Average Income versus Average Sanitation, 1999-2019",
        subtitle = "Average Percentage of People with Basic Sanitation",
@@ -164,7 +184,7 @@ full.data |>
        color = "Year")
 ```
 
-
+Plotting the aggregate average income per person and average sanitation percentage across all countries, the trend seems to follow a increasing trend. Again, further investigation (and possibly historical analysis) is required in otder to decipher the dips in cleanliness around time frames such as the late aughts and the early 2010's.
 
 ## Linear regression
 ```{r}
@@ -172,14 +192,22 @@ full.data |>
 data.fit <- lm(sanitation~income, data = full.data)
 summary(data.fit)
 ```
-Upon fitting a simple linear regression model for percent of people who have access to basic sanitation and adjusted income per person, we acquired the following regression equation:
-$$\hat{\text{sanitation}} = 55.75 + 0.0009699\text{(income)}$$
-Our regression equation tells us that if a country had an average adjusted income of $0, 55.75 percent of people would still have acess to basic sanitation services. Further, for every one dollar increase in adjusted income per person, a country should expect a 0.0009699 percent increase in the amount of people who have access to basic sanitation.
+Upon fitting a simple linear regression model for percent of people who have access to basic sanitation ($Y$) based on adjusted income per person ($X$), we acquired the following regression equation:
+$$\hat{Y} = 55.75 + 0.0009699X$$
+
+Our regression equation tells us that a country with an average adjusted income of $0 will have 55.75% of its people with access to basic sanitation services. Further, for every ten thousand dollars increase in adjusted income per person, a country should expect a 9.699 percent increase in the amount of people who have access to basic sanitation.
 
 ## Model Fit
 
-variance in response -> 
-variance in fitted from regression -> amount of variability in the response accounted for by the explanatory
-variance in resid from regression -> amount of variability in responses that has not been account for
+To assess the validity of our linear model, we look at the variances in observed sanitation percentage, predicted sanitation percentage, and residuals:
 
-The proportion of variability that was accounted for by our model was 0.333. Our model does a good enough job to communicate the general idea that more money means people are going to be cleaner. However, the variable we are hoping predict is a percentage which means it can not exceed 100%, exposing the flaw that our model will predict impossible to reach sanitation percentages for high enough average income inputs. This causes us problems with what we can and can not conclude based on this model due to risk of extrapolating further than our data provides. There is not much we can do about this using a simple linear model as we would have to introduce a polynomial regression equation to be more precise. 
+```{r}
+model_var <- augment(data.fit) |>
+  summarise(var.resp = var(sanitation),
+         var.fitted = var(.fitted),
+         var.resid =var(.resid))
+
+model_var
+```
+
+The proportion of variability accounted for by our model was 0.333. Our model does a good enough job to communicate the general idea that more money means people are going to be cleaner. However, the variable we are hoping to predict is a percentage which means it can not exceed 100%, exposing the flaw that our model will predict impossible to reach sanitation percentages for high enough average income inputs. This gives us problems regarding what we can and can not conclude due to risk of extrapolating further than our data provides. There is not much we can do about this using a simple linear model as we would have to introduce a polynomial regression equation (say, through a logarithmic transformation) to be more precise. 
