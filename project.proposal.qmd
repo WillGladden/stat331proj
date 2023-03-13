@@ -114,7 +114,9 @@ We first visualize the relation between these two variables:
 full.data |>
   ggplot(mapping = aes(x = income, y = sanitation) ) +
   geom_point() +
-  geom_smooth(color = "red") +
+  geom_smooth(method = lm, level = 0, color = "red") +
+  scale_y_continuous(limits = c(0,100),
+                     breaks = seq(0,100,25)) +
   labs(title = "Income versus Sanitation, 1999-2049",
        subtitle = "Percentage of People with (at least) Basic Sanitation Services",
        x = "Adjusted Income per Person ($)",
@@ -123,10 +125,8 @@ full.data |>
 
 Although the above scatter plot is very messy, we can see a general pattern: countries with low adjusted income per person have lower percentages of people with basic sanitation, whereas countries with high income per person never have less than 90 percent of people with basic sanitation.
 
-reword the end of this sentence^
 
-
-However, there are also instances where countries with very low income per person have high percentages of people with basic sanitation. Below is an example of such a country: what country, be specific
+However, there are instances where countries with very low income per person have high percentages of people with basic sanitation. Below you can see that the United States has had two years between 1999 and 2019 where adjusted income per person dipped below $20,000, but over 99% of Americans were able to have access to basic sanitation. 
 
 ```{r}
 full.data |>
@@ -134,8 +134,7 @@ full.data |>
   ggplot(mapping = aes(x = income, y = sanitation)) +
   geom_jitter()
 ```
-It is clear that most data points follow the trend; however, more needs to be investigated in order to understand these outliers.
-??? weirdly worded
+Despite an obvious general trend, further investigation is needed to gain insight on descrepancies like the ones above.
 
 ### Relationship over Time:
 We look at the relationship between average income per person and average percentage of people with basic sanitation at their disposal across 1999-2019.
@@ -161,13 +160,11 @@ full.data |>
        x = "Average Income per Person",
        y = "",
        color = "Year")
-  
 ```
-there is a better way to show this data
-different color scheme, no rainbow
 
-Year should be on the x-axis,
-some measure of the variables relationship on y
+<!-- there is a better way to show this data -->
+<!-- Year should be on the x-axis, -->
+<!-- some measure of the variables relationship on y -->
 
 
 ## Linear regression
@@ -176,13 +173,14 @@ some measure of the variables relationship on y
 data.fit <- lm(sanitation~income, data = full.data)
 summary(data.fit)
 ```
-Upon fitting a simple linear regression model for adjusted income per person and percent of people who have access to basic sanitation, we acquired the following regression equation:
+Upon fitting a simple linear regression model for percent of people who have access to basic sanitation and adjusted income per person, we acquired the following regression equation:
 $$\hat{\text{sanitation}} = 55.75 + 0.0009699\text{(income)}$$
 Our regression equation tells us that if a country had an average adjusted income of $0, 55.75 percent of people would still have acess to basic sanitation services. Further, for every one dollar increase in adjusted income per person, a country should expect a 0.0009699 percent increase in the amount of people who have access to basic sanitation.
 
 ## Model Fit
-Table of variance? Latex table generator
 
-prop of variability in repsonse values accounted by model (kinda R^2)
-How good is our model?
+variance in response -> 
+variance in fitted from regression -> amount of variability in the response accounted for by the explanatory
+variance in resid from regression -> amount of variability in responses that has not been account for
 
+The proportion of variability that was accounted for by our model was 0.333. Our model does a good enough job to communicate the general idea that more money means people are going to be cleaner. However, the variable we are hoping predict is a percentage which means it can not exceed 100%, exposing the flaw that our model will predict impossible to reach sanitation percentages for high enough average income inputs. This causes us problems with what we can and can not conclude based on this model due to risk of extrapolating further than our data provides. There is not much we can do about this using a simple linear model as we would have to introduce a polynomial regression equation to be more precise. 
