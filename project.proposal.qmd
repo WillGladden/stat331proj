@@ -138,6 +138,7 @@ temp.plot <- full.data |>
        y = "Percentage of People with (at least) Basic Sanitation Services")
   
 temp.plot
+#we can make it so that the animation only plasy once, just didnt have time
 ```
 
 
@@ -147,13 +148,17 @@ However, there are instances where countries with very low income per person hav
 
 ```{r}
 full.data |>
+  mutate(year = as.numeric(year)) |>
   filter(country == "United States") |>
   ggplot(mapping = aes(x = income, y = sanitation)) +
   geom_point() +
+  transition_time(year) +
   labs(title = "United States Income vs. Sanitation, 1999-2019",
-       subtitle = "Percentage of People with (at least) Basic Santitation",
+       subtitle = "Year: {floor(frame_time)}",
        x = "Adjusted Income Per Person (in 2017 $)",
-       y = "")
+       y = "Percentage of People with (at least) Basic Santitation") +
+  shadow_mark(alpha = 1, 
+              size = 1)
 ```
 Despite an obvious general trend, further investigation is needed to gain insight on descrepancies like the ones above.
 
