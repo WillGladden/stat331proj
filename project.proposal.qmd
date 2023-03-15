@@ -153,6 +153,7 @@ full.data |>
   ggplot(mapping = aes(x = income, y = sanitation)) +
   geom_point() +
   transition_time(year) +
+  tranistion_pause(5) +
   labs(title = "United States Income vs. Sanitation, 1999-2019",
        subtitle = "Year: {floor(frame_time)}",
        x = "Adjusted Income Per Person (in 2017 $)",
