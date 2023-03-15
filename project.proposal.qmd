@@ -21,11 +21,14 @@ execute:
 
 ```{r setup}
 library(tidyverse)
+library(broom)
 library(ggridges)
 library(RColorBrewer)
 library(knitr)
 library(DT)
 library(kableExtra)
+library(gganimate)
+library(gifski)
 ```
 
 # Introduction
@@ -36,18 +39,32 @@ income.data <- read_csv("income_per_person_gdppercapita_ppp_inflation_adjusted.c
 colnames(income.data) <- c("country", as.numeric(1799:2049))
 ```
 
+We are interested in the relationship between income and sanitation levels. One might assume that as income per person increases, so too will the access to basic necessities, including hygienic products and facilities, such as bathrooms and showers. We aim to analyze data relating to these factors, outlined in the process below.
+
 ```{r}
-head(select(income.data, 1:5))
+income.data |>
+  slice_head(n = 1000) |>
+  select(country, `1999`:`2002`) |>
+  datatable(class = "cell-border",
+            rownames = FALSE,
+            caption = "Table 1: Preview of Income Data Set, 1999-2003.",
+            filter = "top")
 ```
-The income data set measures the total GDP of a country per person for 216 countries between the years of 1892 and 2049, with units in fixed 2017 prices. This number is adjusted for PPP, or the differences between costs of living and essential products, across countries. The data comes from the World Bank, the Maddison Project Database, and the Penn World Table. Historical estimates were used for early years; forecasts from the IMF's Economic Outlook were used to project income in the future.
+Our income data set measures the total GDP of a country per person for 216 countries between the years of 1892 and 2049, with units in fixed 2017 prices. This number is adjusted for PPP, or the differences between costs of living and essential products, across countries. The data comes from the World Bank, the Maddison Project Database, and the Penn World Table. Historical estimates were used for early years; forecasts from the IMF's Economic Outlook were used to project income in the future.
 
 Source: <https://www.gapminder.org/data/documentation/gd001/>
 
 ### Sanitation  Dataset
 ```{r}
-head(select(sanitation.data, 1:5))
+sanitation.data |>
+  slice_head(n = 1000) |>
+  select(1:5) |>
+  datatable(class = "cell-border",
+            rownames = FALSE,
+            caption = "Table 2: Preview of Sanitation Data Set, 1999-2002.",
+            filter = "top")
 ```
-The sanitation data set measures the percentage of people (living in both urban and rural settings) who use at lease basic sanitation services not shared with other households. This includes:
+Our sanitation data set measures the percentage of people (living in both urban and rural settings) who use at lease basic sanitation services not shared with other households. This includes:
 
 + flushing/pouring to piped sewer systems
 + septic
@@ -116,11 +133,11 @@ We first visualize the relation between these two variables:
 ```{r relation}
 data.plot <- full.data |>
   ggplot(mapping = aes(x = income, y = sanitation) ) +
-  geom_point() +
+  geom_jitter(alpha = 0.5) +
   geom_smooth(method = lm, level = 0, color = "red") +
   scale_y_continuous(limits = c(0,100),
                      breaks = seq(0,100,25)) +
-  labs(title = "Income versus Sanitation, 1999-2049",
+  labs(title = "Income versus Sanitation, 1999-2019",
        subtitle = "Percentage of People with (at least) Basic Sanitation Services",
        x = "Adjusted Income per Person (in 2017 $)",
        y = "") 
@@ -154,7 +171,7 @@ temp.plot <- full.data |>
        y = "Percentage of People with (at least) Basic Sanitation Services")
   
 temp.plot
-#we can make it so that the animation only plasy once, just didnt have time
+#we can make it so that the animation only play once, just didnt have time
 ```
 
 
@@ -169,7 +186,6 @@ full.data |>
   ggplot(mapping = aes(x = income, y = sanitation)) +
   geom_point() +
   transition_time(year) +
-  tranistion_pause(5) +
   labs(title = "United States Income vs. Sanitation, 1999-2019",
        subtitle = "Year: {floor(frame_time)}",
        x = "Adjusted Income Per Person (in 2017 $)",
