@@ -23,11 +23,9 @@ execute:
 library(tidyverse)
 library(ggridges)
 library(RColorBrewer)
-library(broom)
 library(knitr)
 library(DT)
 library(kableExtra)
-library(gganimate)
 ```
 
 # Introduction
@@ -141,23 +139,43 @@ data.plot
 #  ease_aes
 
 #data.plot + 
-  
 ```
 
-Although the above scatter plot is very messy, we can see a general pattern: countries with low adjusted income per person have lower percentages of people with basic sanitation, whereas countries with high income per person never have less than 90 percent of people with basic sanitation.
+```{r}
+temp.plot <- full.data |>
+  mutate(year = as.numeric(year)) |>
+  ggplot(mapping = aes(x = income,
+                       y = sanitation)) +
+  geom_point(show.legend = F) +
+  transition_time(year) +
+  labs(title = "Income versus Sanitation, 1999-2019",
+       subtitle = "Year: {floor(frame_time)}",
+       x = "Adjusted Income per Person (in 2017 $)",
+       y = "Percentage of People with (at least) Basic Sanitation Services")
+  
+temp.plot
+#we can make it so that the animation only plasy once, just didnt have time
+```
 
+
+Although the above scatter plot is very messy, we can see a general pattern: countries with low adjusted income per person have lower percentages of people with basic sanitation, whereas countries with high income per person never have less than 90 percent of people with basic sanitation.
 
 However, there are instances where countries with very low income per person have high percentages of people with basic sanitation. Below you can see that the United States has had two years between 1999 and 2019 where adjusted income per person dipped below $20,000, but over 99% of Americans were able to have access to basic sanitation. 
 
 ```{r}
 full.data |>
+  mutate(year = as.numeric(year)) |>
   filter(country == "United States") |>
   ggplot(mapping = aes(x = income, y = sanitation)) +
   geom_point() +
+  transition_time(year) +
+  tranistion_pause(5) +
   labs(title = "United States Income vs. Sanitation, 1999-2019",
-       subtitle = "Percentage of People with (at least) Basic Santitation",
+       subtitle = "Year: {floor(frame_time)}",
        x = "Adjusted Income Per Person (in 2017 $)",
-       y = "")
+       y = "Percentage of People with (at least) Basic Santitation") +
+  shadow_mark(alpha = 1, 
+              size = 1)
 ```
 Despite an obvious general trend, further investigation is needed to gain insight on descrepancies like the ones above.
 
