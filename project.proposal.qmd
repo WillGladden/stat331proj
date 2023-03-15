@@ -143,20 +143,40 @@ data.plot <- full.data |>
        y = "") 
 
 data.plot
-
-#data.plot + transition_time(year) +
-#  labs(title = "Year: {frame_time}")
-
-#anim <- data.plot +
-#  transition_states(
-#    country,
-#    transition_length = 2,
-#    state_length = 1
-#  ) +
-#  ease_aes
-
-#data.plot + 
 ```
+
+Although the above scatter plot is very messy, we can see a general pattern: countries with low adjusted income per person have lower percentages of people with basic sanitation, whereas countries with high income per person never have less than 90 percent of people with basic sanitation.
+
+However, there are instances where countries with very low income per person have high percentages of people with basic sanitation. Below you can see that the United States has had two years between 1999 and 2019 where adjusted income per person dipped below $20,000, but over 99% of Americans were able to have access to basic sanitation. 
+
+```{r}
+p <- full.data |>
+    mutate(year = as.numeric(year)) |>
+    filter(country == "United States") |>
+    ggplot(mapping = aes(x = income, y = sanitation)) +
+    geom_point() +
+    transition_time(year) +
+    labs(title = "United States Income vs. Sanitation, 1999-2019",
+        subtitle = "Year: {floor(frame_time)}",
+        x = "Adjusted Income Per Person (in 2017 $)",
+        y = "Percentage of People with (at least) Basic Santitation") +
+    shadow_mark(alpha = 1, 
+                size = 1)
+animate(p, duration = 5, fps = 20, renderer = gifski_renderer(), end_pause = 40)
+anim_save("animated_US_plot.gif", animation = last_animation())
+```
+
+Despite an obvious general trend, further investigation is needed to gain insight on descrepancies like the ones above.
+
+### Relationship over Time:
+We look at the relationship between average income per person and average percentage of people with basic sanitation at their disposal across 1999-2019.
+
+
+
+Despite an obvious general trend, further investigation is needed to gain insight on descrepancies like the ones above.
+
+### Relationship over Time:
+We look at the relationship between average income per person and average percentage of people with basic sanitation at their disposal across 1999-2019.
 
 ```{r}
 temp.plot <- full.data |>
@@ -168,79 +188,14 @@ temp.plot <- full.data |>
   labs(title = "Income versus Sanitation, 1999-2019",
        subtitle = "Year: {floor(frame_time)}",
        x = "Adjusted Income per Person (in 2017 $)",
-       y = "Percentage of People with (at least) Basic Sanitation Services")
-  
-temp.plot
-#we can make it so that the animation only play once, just didnt have time
+       y = "Percentage of People with (at least) Basic Sanitation Services") +
+  shadow_mark(keep_layer = T, size = 0.1, alpha = 0.5) +
+  enter_fade() +
+  exit_fade()
+
+animate(temp.plot, duration = 10, fps = 10, renderer = gifski_renderer())
+anim_save("animated_time_plot.gif", animation = last_animation())
 ```
-
-
-Although the above scatter plot is very messy, we can see a general pattern: countries with low adjusted income per person have lower percentages of people with basic sanitation, whereas countries with high income per person never have less than 90 percent of people with basic sanitation.
-
-However, there are instances where countries with very low income per person have high percentages of people with basic sanitation. Below you can see that the United States has had two years between 1999 and 2019 where adjusted income per person dipped below $20,000, but over 99% of Americans were able to have access to basic sanitation. 
-
-```{r}
-full.data |>
-  mutate(year = as.numeric(year)) |>
-  filter(country == "United States") |>
-  ggplot(mapping = aes(x = income, y = sanitation)) +
-  geom_point() +
-  transition_time(year) +
-  labs(title = "United States Income vs. Sanitation, 1999-2019",
-       subtitle = "Year: {floor(frame_time)}",
-       x = "Adjusted Income Per Person (in 2017 $)",
-       y = "Percentage of People with (at least) Basic Santitation") +
-  shadow_mark(alpha = 1, 
-              size = 1)
-```
-Despite an obvious general trend, further investigation is needed to gain insight on descrepancies like the ones above.
-
-### Relationship over Time:
-We look at the relationship between average income per person and average percentage of people with basic sanitation at their disposal across 1999-2019.
-```{r relation-over-time}
-# take average income and sanitation for each year, then plot?
-# cleveland dot plots to better indicate year
-# 1999 is lowest, 2019 is highest, everything else already in order.
-full.data |>
-  group_by(year) |>
-  summarise(mean_income = mean(income),
-            mean_sanitation = mean(sanitation)) |>
-  ggplot(mapping = aes(x = mean_income,
-                       y = mean_sanitation#,
-                       #color = fct_reorder2(year, mean_income, mean_sanitation)
-                       )
-         ) +
-  geom_segment(mapping = aes(xend = 0, yend = mean_sanitation)) +
-  geom_point() +
-  annotate("text", x = 17000, y = 76.6, label = "2019") +
-  annotate("text", x = 18700, y = 76.1, label = "2018") +
-  annotate("text", x = 17600, y = 75.6, label = "2017") +
-  annotate("text", x = 19200, y = 75.2, label = "2016") +
-  annotate("text", x = 19200, y = 74.6, label = "2015") +
-  annotate("text", x = 17500, y = 74.1, label = "2014") +
-  annotate("text", x = 17000, y = 73.5, label = "2013") +
-  annotate("text", x = 17700, y = 73.0, label = "2012") +
-  annotate("text", x = 16900, y = 72.4, label = "2011") +
-  annotate("text", x = 17500, y = 71.9, label = "2010") +
-  annotate("text", x = 16100, y = 71.3, label = "2009") +
-  annotate("text", x = 16600, y = 70.7, label = "2008") +
-  annotate("text", x = 17200, y = 70.1, label = "2007") +
-  annotate("text", x = 17200, y = 69.5, label = "2006") +
-  annotate("text", x = 17200, y = 69, label = "2005") +
-  annotate("text", x = 15900, y = 68.5, label = "2004") +
-  annotate("text", x = 15200, y = 67.9, label = "2003") +
-  annotate("text", x = 14700, y = 67.4, label = "2002") +
-  annotate("text", x = 15000, y = 66.9, label = "2001") +
-  annotate("text", x = 14400, y = 66.4, label = "2000") +
-  annotate("text", x = 14600, y = 65.8, label = "1999") +
-  labs(title = "Average Income versus Average Sanitation, 1999-2019",
-       subtitle = "Average Percentage of People with Basic Sanitation",
-       x = "Average Income per Person (in 2017 $)",
-       y = "",
-       color = "Year")
-```
-
-Plotting the aggregate average income per person and average sanitation percentage across all countries, the trend seems to follow a increasing trend. Again, further investigation (and possibly historical analysis) is required in order to decipher the dips in cleanliness around time frames such as the late 2000's and the early 2010's.
 
 ## Linear regression
 ```{r}
