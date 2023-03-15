@@ -26,6 +26,8 @@ library(RColorBrewer)
 library(knitr)
 library(DT)
 library(kableExtra)
+library(gganimate)
+library(gifski)
 ```
 
 # Introduction
@@ -126,19 +128,6 @@ data.plot <- full.data |>
        y = "") 
 
 data.plot
-
-#data.plot + transition_time(year) +
-#  labs(title = "Year: {frame_time}")
-
-#anim <- data.plot +
-#  transition_states(
-#    country,
-#    transition_length = 2,
-#    state_length = 1
-#  ) +
-#  ease_aes
-
-#data.plot + 
 ```
 
 ```{r}
@@ -152,31 +141,34 @@ temp.plot <- full.data |>
        subtitle = "Year: {floor(frame_time)}",
        x = "Adjusted Income per Person (in 2017 $)",
        y = "Percentage of People with (at least) Basic Sanitation Services")
-  
-temp.plot
-#we can make it so that the animation only plasy once, just didnt have time
+
+animate(temp.plot, duration = 10, fps = 10, renderer = gifski_renderer())
+anim_save("animated_time_plot.gif", animation = last_animation())
 ```
 
+![](animated_time_plot)
 
 Although the above scatter plot is very messy, we can see a general pattern: countries with low adjusted income per person have lower percentages of people with basic sanitation, whereas countries with high income per person never have less than 90 percent of people with basic sanitation.
 
 However, there are instances where countries with very low income per person have high percentages of people with basic sanitation. Below you can see that the United States has had two years between 1999 and 2019 where adjusted income per person dipped below $20,000, but over 99% of Americans were able to have access to basic sanitation. 
 
 ```{r}
-full.data |>
-  mutate(year = as.numeric(year)) |>
-  filter(country == "United States") |>
-  ggplot(mapping = aes(x = income, y = sanitation)) +
-  geom_point() +
-  transition_time(year) +
-  tranistion_pause(5) +
-  labs(title = "United States Income vs. Sanitation, 1999-2019",
-       subtitle = "Year: {floor(frame_time)}",
-       x = "Adjusted Income Per Person (in 2017 $)",
-       y = "Percentage of People with (at least) Basic Santitation") +
-  shadow_mark(alpha = 1, 
-              size = 1)
+p <- full.data |>
+    mutate(year = as.numeric(year)) |>
+    filter(country == "United States") |>
+    ggplot(mapping = aes(x = income, y = sanitation)) +
+    geom_point() +
+    transition_time(year) +
+    labs(title = "United States Income vs. Sanitation, 1999-2019",
+        subtitle = "Year: {floor(frame_time)}",
+        x = "Adjusted Income Per Person (in 2017 $)",
+        y = "Percentage of People with (at least) Basic Santitation") +
+    shadow_mark(alpha = 1, 
+                size = 1)
+animate(p, duration = 5, fps = 20, renderer = gifski_renderer(), end_pause = 40)
+anim_save("animated_US_plot.gif", animation = last_animation())
 ```
+![](animated_US_plot.gif)
 Despite an obvious general trend, further investigation is needed to gain insight on descrepancies like the ones above.
 
 ### Relationship over Time:
